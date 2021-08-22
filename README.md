@@ -1,3 +1,7 @@
+# ASD 41026 Project
+
+This repository contains the backend service and provides a RESTful API for the front end client.
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
