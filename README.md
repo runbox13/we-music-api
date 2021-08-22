@@ -1,6 +1,6 @@
 # ASD 41026 - Project
 
-This repository contains the backend service and provides a RESTful API for the front end client.
+This repository contains the backend service and provides a RESTful API for the front end client [we-music-client](https://github.com/peefeeyatko/we-music-client).
 
 ## Lumen PHP Framework
 
