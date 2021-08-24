@@ -5,12 +5,13 @@
 
 trigger:
 - master
+- develop
 
 pool:
   vmImage: ubuntu-latest
 
 variables:
-  phpVersion: 7.2
+  phpVersion: 7.4
 
 steps:
 - script: |
