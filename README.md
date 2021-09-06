@@ -2,6 +2,12 @@
 
 This repository contains the backend service and provides a RESTful API for the front end client [we-music-client](https://github.com/peefeeyatko/we-music-client).
 
+## Serving Your Application
+
+To serve the project locally use the built-in PHP development server:
+
+`php -S localhost:8000 -t public`
+
 ## Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
