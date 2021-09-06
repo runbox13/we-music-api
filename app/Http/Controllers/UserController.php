@@ -16,19 +16,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($id = null)
     {
-        return User::findOrFail($id);
+        if ($id) {
+            return User::findOrFail($id);
+        }
+
+        return User::all();
     }
 
     /**
-     * Retrieve all the users.
+     * Delete a user by id.
      *
+     * @param  int  $id
      * @return Response
      */
-    public function showAll()
+    public function delete($id)
     {
-        return User::all();
+        return User::where('id', $id)->delete();
     }
 
     /**
@@ -48,7 +53,7 @@ class UserController extends Controller
             $user->api_key = base64_encode(Str::random(40));
 
             if ($user->save()) {
-                return response()->json(['status' => 'success'], 200);
+                return response()->json(['user' => User::findOrFail($user->id)], 200);
             }
         }
 
