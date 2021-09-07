@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // dummy users
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 9; $i++) {
             DB::table('users')->insert([
                 'email' => Str::random(8).'@gmail.com',
                 'password' => Hash::make('password'),
