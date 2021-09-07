@@ -59,4 +59,29 @@ class UserController extends Controller
 
         return response()->json(['status' => 'fail'], 500);
     }
+
+    /**
+     * Update a user with data from update profile form.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user) {
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->display_name = $request->input('display_name');
+            $user->bio = $request->input('bio');
+            $user->avatar = $request->input('avatar') ?? null;
+
+            if ($user->save()) {
+                return response()->json(['user' => User::findOrFail($user->id)], 200);
+            }
+        }
+
+        return response()->json(['status' => 'fail'], 500);
+    }
 }
