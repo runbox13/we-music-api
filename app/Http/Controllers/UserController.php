@@ -31,7 +31,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function delete($id)
+    public function destroy($id)
     {
         return User::where('id', $id)->delete();
     }
@@ -83,5 +83,31 @@ class UserController extends Controller
         }
 
         return response()->json(['status' => 'fail'], 500);
+    }
+
+    /**
+     * Authenticate a user login request.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function authenticate(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        
+        $user = User::where('email', $request->input('email'))->first();
+        
+        if (Hash::check($request->input('password'), $user->password)) {
+            $api_key = base64_encode(Str::random(40));
+
+            User::where('email', $request->input('email'))->update(['api_key' => $api_key]);
+            
+            return response()->json(['user' => User::where('email', $request->input('email'))->first()], 200);
+        }
+        
+        return response()->json(['status' => 'fail'], 401);
     }
 }

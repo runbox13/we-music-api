@@ -17,8 +17,13 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// Authenticate / Login
+
+$router->post('login', 'UserController@authenticate');
+
+// User CRUD
 
 $router->get('user[/{id}]', 'UserController@show');
 $router->put('user/{id}', 'UserController@update');
 $router->post('user/store', 'UserController@store');
-$router->delete('user/{id}', 'UserController@delete');
+$router->delete('user/{id}', 'UserController@destroy');
