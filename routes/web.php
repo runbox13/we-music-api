@@ -21,9 +21,14 @@ $router->get('/', function () use ($router) {
 
 $router->post('login', 'UserController@authenticate');
 
-// User CRUD
+// User
 
 $router->get('user[/{id}]', 'UserController@show');
 $router->put('user/{id}', 'UserController@update');
 $router->post('user/store', 'UserController@store');
 $router->delete('user/{id}', 'UserController@destroy');
+
+// Room
+
+$router->get('room[/{id}]', 'RoomController@show');
+$router->get('room/created-by/{id}', 'RoomController@showByUserId');
