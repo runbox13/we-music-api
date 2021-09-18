@@ -31,4 +31,5 @@ $router->delete('user/{id}', 'UserController@destroy');
 // Room
 
 $router->get('room[/{id}]', 'RoomController@show');
+$router->delete('room/{id}', 'RoomController@destroy');
 $router->get('room/created-by/{id}', 'RoomController@showByUserId');
