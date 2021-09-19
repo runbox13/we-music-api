@@ -53,7 +53,25 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        // todo
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        if ($request->has('name') && 
+            $request->has('description') && $request->has('userId')) {
+            $room = new Room;
+
+            $room->name = $request->input('name');
+            $room->description = $request->input('description');
+            $room->user_id = $request->input('userId');
+
+            if ($room->save()) {
+                return response()->json(['status' => 'success'], 200);
+            }
+        }
+
+        return response()->json(['status' => 'fail'], 500);
     }
 
     /**
