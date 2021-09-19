@@ -82,6 +82,17 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // todo
+        $room = Room::findOrFail($id);
+
+        if ($room) {
+            $room->name = $request->input('name');
+            $room->description = $request->input('description');
+
+            if ($room->save()) {
+                return response()->json(['status' => 'sucess'], 200);
+            }
+        }
+
+        return response()->json(['status' => 'fail'], 500);
     }
 }
