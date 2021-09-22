@@ -34,6 +34,20 @@ steps:
     mysql --version
   displayName: 'MySQL Version'
 
+- task: DownloadSecureFile@1
+  name: envFile
+  displayName: 'Download .env file'
+  inputs:
+    secureFile: '.env'
+    retryCount: '5'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.SourceDirectory)'
+  inputs:
+    Contents: |
+      .env
+    TargetFolder: '$(Build.SourceDirectory)'
+
 - script: composer install --no-interaction --prefer-dist
   displayName: 'Composer Install'
 
