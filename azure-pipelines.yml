@@ -24,8 +24,6 @@ steps:
   displayName: 'Use PHP version $(phpVersion)'
 
 - script: |
-    sudo apt-get install -y build-essential debconf-utils mysql-server
-    sudo apt-get install -y unzip xvfb autogen autoconf libtool pkg-config nasm
     sudo service mysql start
     sudo mysql -u root -proot -e 'create database we_music;'
   displayName: 'Installing System Dependencies'
@@ -44,8 +42,8 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.SourceDirectory)'
   inputs:
-    Contents: |
-      .env
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: '.env'
     TargetFolder: '$(Build.SourceDirectory)'
 
 - script: composer install --no-interaction --prefer-dist
