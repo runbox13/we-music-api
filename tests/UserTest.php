@@ -71,7 +71,7 @@ class UserTest extends TestCase
      */
     public function testUserDelete()
     {
-        $this->json('DELETE', '/user/2')
+        $this->json('DELETE', '/user/11')
             ->seeStatusCode(200);
     }
 }
