@@ -15,8 +15,9 @@ class UserTest extends TestCase
     public function testUserShow()
     {
         $this->json('GET', '/user/1')
-             ->seeJson([
-                'id' => 1,
+            ->seeStatusCode(200)
+            ->seeJson([
+                'id' => 1
         ]);
     }
 
@@ -28,11 +29,9 @@ class UserTest extends TestCase
     public function testUserStore()
     {
         $this->json('POST', '/user/store', [
-            'name' => 'Marshall', 
-            'email' => Str::random(8).'@gmail.com',
-            'password' => 'password123',
-            'display_name' => 'foobarBaz'
-            ])
+            'email' => 'phpunit@gmail.com',
+            'password' => 'phpunit'
+        ])
             ->seeStatusCode(200)
             ->seeJsonStructure([
                 'user' => [
@@ -44,7 +43,35 @@ class UserTest extends TestCase
                     'email',
                     'api_key',
                     'updated_at'
-                ],
+                ]
         ]);
+    }
+
+    /**
+     * Test PUT /user response.
+     *
+     * @return void
+     */
+    public function testUserUpdate()
+    {
+        $this->json('PUT', '/user/1', [
+            'password' => 'password',
+            'display_name' => 'Updated Display Name'
+        ])
+            ->seeStatusCode(200)
+            ->seeJson([
+                'display_name' => 'Updated Display Name'
+        ]);
+    }
+
+    /**
+     * Test DELETE /user response.
+     *
+     * @return void
+     */
+    public function testUserDelete()
+    {
+        $this->json('DELETE', '/user/2')
+            ->seeStatusCode(200);
     }
 }
