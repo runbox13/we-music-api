@@ -89,7 +89,7 @@ class RoomController extends Controller
             $room->description = $request->input('description');
 
             if ($room->save()) {
-                return response()->json(['status' => 'sucess'], 200);
+                return response()->json(['status' => 'success'], 200);
             }
         }
 
