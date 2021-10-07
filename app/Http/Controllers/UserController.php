@@ -72,7 +72,6 @@ class UserController extends Controller
 
         if ($user) {
             $user->email = $request->input('email') ?? $user->email;
-            $user->password = Hash::make($request->input('password'));
             $user->display_name = $request->input('display_name') ?? $user->display_name;
             $user->bio = $request->input('bio') ?? $user->bio;
             $user->avatar = $request->input('avatar') ?? $user->avatar;
