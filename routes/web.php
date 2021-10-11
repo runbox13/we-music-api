@@ -35,3 +35,9 @@ $router->put('room/{id}', 'RoomController@update');
 $router->post('room/store', 'RoomController@store');
 $router->delete('room/{id}', 'RoomController@destroy');
 $router->get('room/created-by/{id}', 'RoomController@showByUserId');
+
+// Playlist
+
+$router->get('playlist[/{id}]', 'PlaylistController@show');
+$router->delete('playlist/{id}', 'PlaylistController@destroy');
+$router->get('playlist/created-by/{id}', 'PlaylistController@showByUserId');
