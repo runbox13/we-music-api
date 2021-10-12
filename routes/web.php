@@ -41,3 +41,10 @@ $router->get('room/created-by/{id}', 'RoomController@showByUserId');
 $router->get('playlist[/{id}]', 'PlaylistController@show');
 $router->delete('playlist/{id}', 'PlaylistController@destroy');
 $router->get('playlist/created-by/{id}', 'PlaylistController@showByUserId');
+
+// Track
+
+$router->get('track/{id}', 'TrackController@show');
+$router->put('track/{id}', 'TrackController@update');
+$router->post('track/store', 'TrackController@store');
+$router->delete('track/{id}', 'TrackController@destroy');

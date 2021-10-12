@@ -53,13 +53,12 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $valid = $this->validate($request, [
             'name' => 'required',
             'description' => 'required'
         ]);
 
-        if ($request->has('name') && 
-            $request->has('description') && $request->has('userId')) {
+        if ($valid) {
             $room = new Room;
 
             $room->name = $request->input('name');
