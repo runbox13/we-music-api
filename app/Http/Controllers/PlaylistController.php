@@ -33,8 +33,13 @@ class PlaylistController extends Controller
     public function showByUserId($id)
     {
         $playlist = Playlist::where('user_id', $id)->get()->first();
-        $tracks = Track::where('playlist_id', $playlist->id)->get();
-        return response()->json(['playlist' => $playlist, 'tracks' => $tracks]);
+
+        if ($playlist) {
+            $tracks = Track::where('playlist_id', $playlist->id)->get();
+            return response()->json(['playlist' => $playlist, 'tracks' => $tracks]);
+        }
+
+        return response()->json([], 200);
     }
 
     /**
