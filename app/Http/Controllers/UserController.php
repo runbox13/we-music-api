@@ -26,17 +26,6 @@ class UserController extends Controller
     }
 
     /**
-     * Delete a user by id.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        return User::where('id', $id)->delete();
-    }
-
-    /**
      * Create a user with data from registration form.
      *
      * @param  Request  $request
@@ -85,6 +74,17 @@ class UserController extends Controller
     }
 
     /**
+     * Delete a user by id.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        return User::where('id', $id)->delete();
+    }
+
+    /**
      * Authenticate a user login request.
      *
      * @param  Request  $request
@@ -92,21 +92,55 @@ class UserController extends Controller
      */
     public function authenticate(Request $request)
     {
-        $this->validate($request, [
+        $valid = $this->validate($request, [
             'email' => 'required',
             'password' => 'required'
         ]);
         
-        $user = User::where('email', $request->input('email'))->first();
-        
-        if (Hash::check($request->input('password'), $user->password)) {
-            $api_key = base64_encode(Str::random(40));
-
-            User::where('email', $request->input('email'))->update(['api_key' => $api_key]);
+        if ($valid) {
+            $user = User::where('email', $request->input('email'))->first();
             
-            return response()->json(['user' => User::where('email', $request->input('email'))->first()], 200);
+            if (Hash::check($request->input('password'), $user->password)) {
+                $api_key = base64_encode(Str::random(40));
+
+                User::where('email', $request->input('email'))->update(['api_key' => $api_key]);
+                
+                return response()->json(['user' => User::where('email', $request->input('email'))->first()], 200);
+            }
         }
         
         return response()->json(['status' => 'fail'], 401);
+    }
+
+    /**
+     * Update a user's password.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function passwordReset(Request $request)
+    {
+        $valid = $this->validate($request, [
+            'user_id' => 'required',
+            'new' => 'required',
+            'password' => 'required'
+        ]);
+
+        if ($valid) {
+            $user = User::findOrFail($request->input('user_id'));
+
+            // check the original password is valid
+            if (Hash::check($request->input('password'), $user->password)) {
+                
+                // hash new password and save to DB
+                $user->password = Hash::make($request->input('new'));
+
+                if ($user->save()) {
+                    return response()->json(['status' => 'success'], 200);
+                }
+            }
+        }
+
+        return response()->json(['status' => 'fail'], 500);
     }
 }

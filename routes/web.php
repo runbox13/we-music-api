@@ -27,6 +27,7 @@ $router->get('user[/{id}]', 'UserController@show');
 $router->put('user/{id}', 'UserController@update');
 $router->post('user/store', 'UserController@store');
 $router->delete('user/{id}', 'UserController@destroy');
+$router->post('user/password-reset', 'UserController@passwordReset');
 
 // Room
 
