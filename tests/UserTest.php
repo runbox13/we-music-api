@@ -3,9 +3,11 @@
 use Illuminate\Support\Str;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Laravel\Lumen\Testing\WithoutMiddleware;
 
 class UserTest extends TestCase
 {
+    use WithoutMiddleware;
 
     /**
      * Test GET /user response.

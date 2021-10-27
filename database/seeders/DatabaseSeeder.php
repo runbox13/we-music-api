@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         // $this->call('UsersTableSeeder');
         $this->createUsers();
         $this->createRooms();
+        $this->createPlaylists();
+        $this->createTracks();
     }
 
     function createUsers()
@@ -58,7 +60,51 @@ class DatabaseSeeder extends Seeder
             DB::table('rooms')->insert([
                 'name' => Str::random(8),
                 'description' => 'This is a room created by the database seeder!',
-                'user_id' => rand(1, 5),
+                'user_id' => rand(1, 8),
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
+        }
+    }
+
+    function createPlaylists()
+    {
+        DB::table('playlists')->insert([
+            'name' => 'LoFi & Chill',
+            'description' => 'This is a playlist created by the database seeder!',
+            'user_id' => 1,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        for ($i = 2; $i < 6; $i++) {
+            DB::table('playlists')->insert([
+                'name' => Str::random(8),
+                'description' => 'This is a playlist created by the database seeder!',
+                'user_id' => $i,
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
+        }
+    }
+
+    function createTracks()
+    {
+        DB::table('tracks')->insert([
+            'title' => 'Another Batch (1998) [HQ Remastered]',
+            'artist' => 'J Dilla',
+            'url' => 'https://www.youtube.com/watch?v=LDPyQP34-2Y',
+            'playlist_id' => 1,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        for ($i = 2; $i < 6; $i++) {
+            DB::table('tracks')->insert([
+                'title' => 'Never Gonna Give You Up (Official Music Video)',
+                'artist' => 'Rick Astley',
+                'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'playlist_id' => $i,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ]);
