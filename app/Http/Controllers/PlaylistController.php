@@ -52,4 +52,32 @@ class PlaylistController extends Controller
     {
         return Playlist::where('id', $id)->delete();
     }
+
+    /**
+     * Create a room with data from create form.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $valid = $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        if ($valid) {
+            $playlist = new Playlist;
+
+            $playlist->name = $request->input('name');
+            $playlist->description = $request->input('description');
+            $playlist->user_id = $request->input('userId');
+
+            if ($playlist->save()) {
+                return response()->json(['status' => 'success'], 200);
+            }
+        }
+
+        return response()->json(['status' => 'fail'], 500);
+    }
 }
