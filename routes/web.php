@@ -62,6 +62,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     // Playlist
 
     $router->delete('playlist/{id}', 'PlaylistController@destroy');
+    $router->post('playlist/store', 'PlaylistController@store');
 
     // Track
 
